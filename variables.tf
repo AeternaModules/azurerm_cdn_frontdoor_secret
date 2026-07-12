@@ -13,9 +13,9 @@ EOT
     cdn_frontdoor_profile_id = string
     name                     = string
     secret = object({
-      customer_certificate = object({
+      customer_certificate = list(object({
         key_vault_certificate_id = string
-      })
+      }))
     })
   }))
   # --- Unconfirmed validation candidates, derived from azurerm_cdn_frontdoor_secret's provider source ---

@@ -5,8 +5,11 @@ resource "azurerm_cdn_frontdoor_secret" "cdn_frontdoor_secrets" {
   name                     = each.value.name
 
   secret {
-    customer_certificate {
-      key_vault_certificate_id = each.value.secret.customer_certificate.key_vault_certificate_id
+    dynamic "customer_certificate" {
+      for_each = each.value.secret.customer_certificate
+      content {
+        key_vault_certificate_id = customer_certificate.value.key_vault_certificate_id
+      }
     }
   }
 }
