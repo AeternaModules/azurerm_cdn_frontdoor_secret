@@ -1,3 +1,7 @@
+output "cdn_frontdoor_secrets_id" {
+  description = "Map of id values across all cdn_frontdoor_secrets, keyed the same as var.cdn_frontdoor_secrets"
+  value       = { for k, v in azurerm_cdn_frontdoor_secret.cdn_frontdoor_secrets : k => v.id }
+}
 output "cdn_frontdoor_secrets_cdn_frontdoor_profile_id" {
   description = "Map of cdn_frontdoor_profile_id values across all cdn_frontdoor_secrets, keyed the same as var.cdn_frontdoor_secrets"
   value       = { for k, v in azurerm_cdn_frontdoor_secret.cdn_frontdoor_secrets : k => v.cdn_frontdoor_profile_id }
