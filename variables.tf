@@ -18,6 +18,14 @@ EOT
       }))
     })
   }))
+  validation {
+    condition = alltrue([
+      for k, v in var.cdn_frontdoor_secrets : (
+        length(v.secret.customer_certificate) >= 1
+      )
+    ])
+    error_message = "Each customer_certificate list must contain at least 1 items"
+  }
   # --- Unconfirmed validation candidates, derived from azurerm_cdn_frontdoor_secret's provider source ---
   # Not auto-enabled: either a bespoke provider validator we can't safely translate,
   # or a path that crosses a list-typed block (needs its own for_each wrapping).
